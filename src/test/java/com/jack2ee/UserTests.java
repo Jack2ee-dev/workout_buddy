@@ -61,4 +61,52 @@ public class UserTests {
         // then
         assertEquals(userService.findById(user.getId()).getRole(), UserRole.ADMIN.getIntValue());
     }
+
+    @Test
+    void 일반유저_트레이너로_역할바꾸기() {
+        // given
+        User user = userService.addIfNotExist(TEST_NAME, TEST_EMAIL, TEST_OAUTH_PROVIDER, UserRole.CUSTOMER);
+
+        // when
+        userService.changeRole(user.getToken(), UserRole.TRAINER);
+
+        // then
+        assertEquals(userService.findById(user.getId()).getRole(), UserRole.TRAINER.getIntValue());
+    }
+
+    @Test
+    void 트레이너_일반유저로_역할바꾸기() {
+        // given
+        User user = userService.addIfNotExist(TEST_NAME, TEST_EMAIL, TEST_OAUTH_PROVIDER, UserRole.TRAINER);
+
+        // when
+        userService.changeRole(user.getToken(), UserRole.CUSTOMER);
+
+        // then
+        assertEquals(userService.findById(user.getId()).getRole(), UserRole.CUSTOMER.getIntValue());
+    }
+
+    @Test
+    void 트레이너_관리자로_역할바꾸기() {
+        // given
+        User user = userService.addIfNotExist(TEST_NAME, TEST_EMAIL, TEST_OAUTH_PROVIDER, UserRole.TRAINER);
+
+        // when
+        userService.changeRole(user.getToken(), UserRole.ADMIN);
+
+        // then
+        assertEquals(userService.findById(user.getId()).getRole(), UserRole.ADMIN.getIntValue());
+    }
+
+    @Test
+    void 관리자_일반유저로_역할바꾸기() {
+        // given
+        User user = userService.addIfNotExist(TEST_NAME, TEST_EMAIL, TEST_OAUTH_PROVIDER, UserRole.ADMIN);
+
+        // when
+        userService.changeRole(user.getToken(), UserRole.CUSTOMER);
+
+        // then
+        assertEquals(userService.findById(user.getId()).getRole(), UserRole.CUSTOMER.getIntValue());
+    }
 }
