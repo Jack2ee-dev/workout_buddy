@@ -30,4 +30,16 @@ public class UserServiceImpl implements UserService {
             .build()));
     }
 
+    @Override
+    public boolean changeRole(String token, UserRole roleTo) {
+        Optional<User> optionalUser = userRepository
+            .findByToken(token);
+        if (optionalUser.isPresent()) {
+            User updatedUser = optionalUser.get();
+            updatedUser.changeRole(roleTo);
+            userRepository.save(updatedUser);
+            return true;
+        }
+        return false;
+    }
 }

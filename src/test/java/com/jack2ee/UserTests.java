@@ -49,4 +49,16 @@ public class UserTests {
         assertTrue(user.getCreatedAt().isAfter(now));
         assertTrue(user.getUpdatedAt().isAfter(now));
     }
+
+    @Test
+    void 일반유저_관리자로_역할바꾸기() {
+        // given
+        User user = userService.addIfNotExist(TEST_NAME, TEST_EMAIL, TEST_OAUTH_PROVIDER, UserRole.CUSTOMER);
+
+        // when
+        user.changeRole(UserRole.ADMIN);
+
+        // then
+        assertEquals(user.getRole(), UserRole.ADMIN.getIntValue());
+    }
 }

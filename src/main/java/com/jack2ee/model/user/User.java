@@ -43,4 +43,8 @@ public class User extends BaseTimeEntity {
         this.token = token;
         this.role = roleValue;
     }
+
+    public void changeRole(UserRole role) {
+        this.role = role.getIntValue();
+    }
 }

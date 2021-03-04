@@ -9,4 +9,7 @@ public interface UserService {
 
     @Transactional
     User addIfNotExist(String name, String email, String oauthProvider, UserRole userRole);
+
+    @Transactional
+    boolean changeRole(String token, UserRole roleTo);
 }
