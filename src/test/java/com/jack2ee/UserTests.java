@@ -56,9 +56,9 @@ public class UserTests {
         User user = userService.addIfNotExist(TEST_NAME, TEST_EMAIL, TEST_OAUTH_PROVIDER, UserRole.CUSTOMER);
 
         // when
-        user.changeRole(UserRole.ADMIN);
+        userService.changeRole(user.getToken(), UserRole.ADMIN);
 
         // then
-        assertEquals(user.getRole(), UserRole.ADMIN.getIntValue());
+        assertEquals(userService.findById(user.getId()).getRole(), UserRole.ADMIN.getIntValue());
     }
 }

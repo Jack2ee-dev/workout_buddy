@@ -12,4 +12,7 @@ public interface UserService {
 
     @Transactional
     boolean changeRole(String token, UserRole roleTo);
+
+    @Transactional
+    User findById(Long id);
 }
